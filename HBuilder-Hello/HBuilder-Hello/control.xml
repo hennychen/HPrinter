@@ -1,0 +1,6 @@
+<HBuilder version="1.9.9.26255">
+	<!--应用节点-->
+	<apps>
+		<app appid='HelloH5' appver='1.6.0'/>
+	</apps>
+</HBuilder> 
