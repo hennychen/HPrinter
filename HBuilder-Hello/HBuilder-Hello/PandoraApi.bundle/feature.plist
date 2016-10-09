@@ -309,5 +309,14 @@
 		<key>global</key>
 		<false/>
 	</dict>
+    <key>pluginbleprinter</key>
+    <dict>
+        <key>class</key>
+        <string>PGPluginBarScan</string>
+        <key>global</key>
+        <true/>
+        <key>autostart</key>
+        <true/>
+    </dict>
 </dict>
 </plist>

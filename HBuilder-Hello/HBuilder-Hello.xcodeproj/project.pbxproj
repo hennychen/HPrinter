@@ -89,6 +89,7 @@
 		24BD5AF21C994A1700B05AA2 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24BD5AF11C994A1700B05AA2 /* libicucore.tbd */; };
 		24BD5AF41C994A2700B05AA2 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24BD5AF31C994A2700B05AA2 /* libstdc++.tbd */; };
 		24BD5AF61C994BB200B05AA2 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24BD5AF51C994BB200B05AA2 /* libc++.tbd */; };
+		5CA61F1F1DAA46AA00008598 /* PGPluginBLEPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CA61F1E1DAA46AA00008598 /* PGPluginBLEPrinter.m */; };
 		7A6D778819FB5A9B0076EEFE /* icon87.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6D778619FB5A9B0076EEFE /* icon87.png */; };
 		7A6D778919FB5A9B0076EEFE /* icon180.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6D778719FB5A9B0076EEFE /* icon180.png */; };
 		7A6D778D19FB5AAD0076EEFE /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A6D778A19FB5AAD0076EEFE /* Default-667h@2x.png */; };
@@ -235,6 +236,8 @@
 		24BD5AF11C994A1700B05AA2 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		24BD5AF31C994A2700B05AA2 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		24BD5AF51C994BB200B05AA2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		5CA61F1D1DAA46AA00008598 /* PGPluginBLEPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGPluginBLEPrinter.h; sourceTree = "<group>"; };
+		5CA61F1E1DAA46AA00008598 /* PGPluginBLEPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGPluginBLEPrinter.m; sourceTree = "<group>"; };
 		7A6D778619FB5A9B0076EEFE /* icon87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon87.png; sourceTree = "<group>"; };
 		7A6D778719FB5A9B0076EEFE /* icon180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon180.png; sourceTree = "<group>"; };
 		7A6D778A19FB5AAD0076EEFE /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
@@ -562,6 +565,8 @@
 				8E2EF7D51A7808F1007C06F4 /* inc */,
 				8EED62AA198A1D13000A4449 /* AppDelegate.h */,
 				8EED62AB198A1D13000A4449 /* AppDelegate.m */,
+				5CA61F1D1DAA46AA00008598 /* PGPluginBLEPrinter.h */,
+				5CA61F1E1DAA46AA00008598 /* PGPluginBLEPrinter.m */,
 				8EED62D3198A215A000A4449 /* icon */,
 				8EED62B0198A1D14000A4449 /* Main_iPad.storyboard */,
 				8EED62AD198A1D13000A4449 /* Main_iPhone.storyboard */,
@@ -723,6 +728,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CA61F1F1DAA46AA00008598 /* PGPluginBLEPrinter.m in Sources */,
 				8EED62B5198A1D14000A4449 /* ViewController.m in Sources */,
 				8EED62AC198A1D13000A4449 /* AppDelegate.m in Sources */,
 				8EED62A8198A1D13000A4449 /* main.m in Sources */,
