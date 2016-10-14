@@ -10,8 +10,10 @@
 #import "PDRCoreAppFrame.h"
 #import "H5WEEngineExport.h"
 #import "PDRToolSystemEx.h"
-
+#import <CoreBluetooth/CoreBluetooth.h>
 #import "BLETableViewController.h"
+#import "SEPrinterManager.h"
+
 
 @interface PGPluginBLEPrinter()
 {
@@ -65,8 +67,22 @@
         // CallBackid 异步方法的回调id，H5+ 会根据回调ID通知JS层运行结果成功或者失败
         self.cbId = [commands.arguments objectAtIndex:0];
         NSLog(@"cbid---%@",_cbId);
+        SEPrinterManager * manager = [SEPrinterManager sharedInstance];
+        if (manager.isConnected) {
 
-        [self scanBLEDevice];
+            HLPrinter *printer = [[HLPrinter alloc] init];
+            NSString *title = @"测试电商";
+            NSString *str1 = @"测试电商服务中心(销售单)";
+            [printer appendText:title alignment:HLTextAlignmentCenter fontSize:HLFontSizeTitleBig];
+            [printer appendText:str1 alignment:HLTextAlignmentCenter];
+            [printer appendBarCodeWithInfo:@"RN3456789012"];
+            [printer appendSeperatorLine];
+            
+            NSData *mainData = [printer getFinalData];
+            [[SEPrinterManager sharedInstance] sendPrintData:mainData completion:nil];
+        }else{
+            [self scanBLEDevice];
+        }
     }
 }
 //扫描蓝牙设备
@@ -74,11 +90,14 @@
     BLETableViewController * bletablevct = [[BLETableViewController alloc] initWithNibName:@"BLETableViewController" bundle:nil];
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:bletablevct];
     
-    __block typeof(self) weakSelf = self;
-    //    bletablevct.returnPeripheral = ^(CBPeripheral *peripheral){
-    ////        [weakSelf connectBLEDevice:peripheral];
-    //
-    //    };
+//    __block typeof(self) weakSelf = self;
+//        bletablevct.returnPeripheral = ^(CBPeripheral *peripheral){
+//    //        [weakSelf connectBLEDevice:peripheral];
+//            
+//            SEPrinterManager *_manager = [SEPrinterManager sharedInstance];
+//            
+//    
+//        };
     [self presentViewController:nav animated:YES completion:^{
         
     }];

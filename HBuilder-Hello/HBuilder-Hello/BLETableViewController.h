@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface BLETableViewController : UIViewController
 
+//@property(nonatomic, copy) void(^returnPeripheral)(CBPeripheral *peripheral);
 @end
