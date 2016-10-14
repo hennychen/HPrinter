@@ -51,6 +51,7 @@
 @property (copy, nonatomic)   SEScanPerpheralSuccess             scanPerpheralSuccess;  /**< 扫描设备成功的回调 */
 @property (copy, nonatomic)   SEScanPerpheralFailure             scanPerpheralFailure;  /**< 扫描设备失败的回调 */
 @property (copy, nonatomic)   SEConnectCompletion                connectCompletion;    /**< 连接完成的回调 */
+@property (copy, nonatomic)   SEFullOptionCompletion             optionCompletion;    /**< 连接、扫描、搜索 */
 /**< 蓝牙操作代理 */
 @property (assign, nonatomic)   id<SEPrinterManagerDelegate>             delegate;
 

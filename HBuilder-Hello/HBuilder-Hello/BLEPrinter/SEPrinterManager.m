@@ -16,7 +16,7 @@
 
 @interface SEPrinterManager ()<CBCentralManagerDelegate,CBPeripheralDelegate>
 
-@property (copy, nonatomic)   SEFullOptionCompletion             optionCompletion;    /**< 连接、扫描、搜索 */
+
 
 @property (copy, nonatomic)   SEDisconnect                       disconnectBlock;    /**< 断开连接的回调 */
 

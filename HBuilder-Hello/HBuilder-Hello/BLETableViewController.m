@@ -181,36 +181,47 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CBPeripheral *peripheral = [self.deviceArray objectAtIndex:indexPath.row];
     
-    
-//    [[SEPrinterManager sharedInstance] connectPeripheral:peripheral completion:^(CBPeripheral *perpheral, NSError *error) {
+    SEPrinterManager *_manager = [SEPrinterManager sharedInstance];
+
+    [_manager connectPeripheral:peripheral];
+//
+//    _manager.connectCompletion = ^(CBPeripheral *perpheral, NSError *error) {
 //        if (error) {
 //            [SVProgressHUD showErrorWithStatus:@"连接失败"];
 //        } else {
 //            self.title = @"已连接";
 //            [SVProgressHUD showSuccessWithStatus:@"连接成功"];
 //        }
-//    }];
-    SEPrinterManager *_manager = [SEPrinterManager sharedInstance];
-
-    [_manager connectPeripheral:peripheral];
-
-    _manager.connectCompletion = ^(CBPeripheral *perpheral, NSError *error) {
-        if (error) {
-            [SVProgressHUD showErrorWithStatus:@"连接失败"];
-        } else {
-            self.title = @"已连接";
-            [SVProgressHUD showSuccessWithStatus:@"连接成功"];
+//    };
+//     如果你需要连接，立刻去打印
+//        [[SEPrinterManager sharedInstance] fullOptionPeripheral:peripheral completion:^(SEOptionStage stage, CBPeripheral *perpheral, NSError *error) {
+//            if (stage == SEOptionStageSeekCharacteristics) {
+//                HLPrinter *printer = [self getPrinter];
+//    
+//                NSData *mainData = [printer getFinalData];
+//                [[SEPrinterManager sharedInstance] sendPrintData:mainData completion:nil];
+//            }
+//        }];
+    _manager.optionCompletion = ^(SEOptionStage stage, CBPeripheral *perpheral, NSError *error) {
+        if (stage == SEOptionStageSeekCharacteristics) {
+            HLPrinter *printer = [self getPrinter];
+            
+            NSData *mainData = [printer getFinalData];
+            [[SEPrinterManager sharedInstance] sendPrintData:mainData completion:nil];
+//            [[SEPrinterManager sharedInstance] sendPrintData:mainData completion:^(CBPeripheral *connectPerpheral, BOOL completion, NSString *error) {
+//                if (completion) {
+//                    [self closeview];
+//                }
+//            }];
+            [self closeview];
         }
     };
-    // 如果你需要连接，立刻去打印
-    //    [[SEPrinterManager sharedInstance] fullOptionPeripheral:peripheral completion:^(SEOptionStage stage, CBPeripheral *perpheral, NSError *error) {
-    //        if (stage == SEOptionStageSeekCharacteristics) {
-    //            HLPrinter *printer = [self getPrinter];
-    //
-    //            NSData *mainData = [printer getFinalData];
-    //            [[SEPrinterManager sharedInstance] sendPrintData:mainData completion:nil];
-    //        }
-    //    }];
+    
+}
+-(void)closeview{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
