@@ -1,37 +1,161 @@
 //
-//  HLPrinter.h
-//  HLBluetoothDemo
+//  SEPrinterManager.h
+//  SEBLEPrinter
 //
-//  Created by Harvey on 16/5/3.
+//  Created by Harvey on 16/5/5.
 //  Copyright © 2016年 Halley. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
-#import "UIImage+Bitmap.h"
+#import "SEBLEConst.h"
+#import "HLPrinter.h"
 
-typedef NS_ENUM(NSInteger, HLPrinterStyle) {
-    HLPrinterStyleDefault,
-    HLPrinterStyleCustom
-};
+@class SEPrinterManager;
+@protocol SEPrinterManagerDelegate <NSObject>
 
-/** 文字对齐方式 */
-typedef NS_ENUM(NSInteger, HLTextAlignment) {
-    HLTextAlignmentLeft = 0x00,
-    HLTextAlignmentCenter = 0x01,
-    HLTextAlignmentRight = 0x02
-};
+/** 返回扫描到的蓝牙 设备列表
+ *  因为蓝牙模块一次返回一个设备，所以该方法会调用多次
+ */
+- (void)printerManager:(SEPrinterManager *)manager perpherals:(NSArray<CBPeripheral *> *)perpherals isTimeout:(BOOL)isTimeout;
 
-/** 字号 */
-typedef NS_ENUM(NSInteger, HLFontSize) {
-    HLFontSizeTitleSmalle = 0x00,
-    HLFontSizeTitleMiddle = 0x11,
-    HLFontSizeTitleBig = 0x22
-};
+/** 扫描蓝牙设备失败
+ *
+ */
+- (void)printerManager:(SEPrinterManager *)manager scanError:(SEScanError)error;
 
-@interface HLPrinter : NSObject
+/**
+ *  连接蓝牙外设完成
+ *
+ *  @param manager
+ *  @param perpheral 蓝牙外设
+ *  @param error
+ */
+- (void)printerManager:(SEPrinterManager *)manager completeConnectPerpheral:(CBPeripheral *)perpheral error:(NSError *)error;
 
+/**
+ *  断开连接
+ *
+ *  @param manager
+ *  @param peripheral 设备
+ *  @param error      错误信息
+ */
+- (void)printerManager:(SEPrinterManager *)manager disConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
+
+@end
+
+
+@interface SEPrinterManager : NSObject
+
+@property (copy, nonatomic)   SEScanPerpheralSuccess             scanPerpheralSuccess;  /**< 扫描设备成功的回调 */
+@property (copy, nonatomic)   SEScanPerpheralFailure             scanPerpheralFailure;  /**< 扫描设备失败的回调 */
+@property (copy, nonatomic)   SEConnectCompletion                connectCompletion;    /**< 连接完成的回调 */
+/**< 蓝牙操作代理 */
+@property (assign, nonatomic)   id<SEPrinterManagerDelegate>             delegate;
+
+@property (strong, nonatomic, readonly)   CBPeripheral                *connectedPerpheral;    /**< 当前连接的外设 */
+@property (copy, nonatomic) void(^SEScanPerpheralSuccess)(NSArray<CBPeripheral *> *perpherals, BOOL isTimeout);  /**< 扫描设备成功的回调 */
+#pragma mark - bluetooth method
+
++ (instancetype)sharedInstance;
+
+/**
+ *  上次连接的蓝牙外设的UUIDString
+ *
+ *  @return UUIDString,没有时返回nil
+ */
++ (NSString *)UUIDStringForLastPeripheral;
+
+/**
+ *  蓝牙外设是否已连接
+ *
+ *  @return YES/NO
+ */
+- (BOOL)isConnected;
+
+/**
+ *  开始扫描蓝牙外设
+ *  @param timeout 扫描超时时间,设置为0时表示一直扫描
+ */
+- (void)startScanPerpheralTimeout:(NSTimeInterval)timeout;
+
+/**
+ *  开始扫描蓝牙外设，block方式返回结果
+ *  @param timeout 扫描超时时间，设置为0时表示一直扫描
+ *  @param success 扫描成功的回调
+ *  @param failure 扫描失败的回调
+ */
+- (void)startScanPerpheralTimeout:(NSTimeInterval)timeout Success:(SEScanPerpheralSuccess)success failure:(SEScanPerpheralFailure)failure;
+
+/**
+ *  停止扫描蓝牙外设
+ */
+- (void)stopScan;
+
+/**
+ *  连接蓝牙外设,连接成功后会停止扫描蓝牙外设
+ *
+ *  @param peripheral 蓝牙外设
+ */
+- (void)connectPeripheral:(CBPeripheral *)peripheral;
+
+/**
+ *  连接蓝牙外设，连接成功后会停止扫描蓝牙外设，block方式返回结果
+ *
+ *  @param peripheral 要连接的蓝牙外设
+ *  @param completion 完成后的回调
+ */
+- (void)connectPeripheral:(CBPeripheral *)peripheral completion:(SEConnectCompletion)completion;
+
+/**
+ *  完整操作，包括连接、扫描服务、扫描特性、扫描描述
+ *
+ *  @param peripheral 要连接的蓝牙外设
+ *  @param completion 完成后的回调
+ */
+- (void)fullOptionPeripheral:(CBPeripheral *)peripheral completion:(SEFullOptionCompletion)completion;
+
+/**
+ *  取消某个蓝牙外设的连接
+ *
+ *  @param peripheral 蓝牙外设
+ */
+- (void)cancelPeripheral:(CBPeripheral *)peripheral;
+
+/**
+ *  自动连接上次的蓝牙外设
+ *
+ *  @param timeout
+ *  @param completion
+ */
+- (void)autoConnectLastPeripheralTimeout:(NSTimeInterval)timeout completion:(SEConnectCompletion)completion;
+
+/**
+ *  设置断开连接的block
+ *
+ *  @param disconnectBlock
+ */
+- (void)setDisconnect:(SEDisconnect)disconnectBlock;
+
+/**
+ *  直接打印数据
+ *
+ *  @param result 结果
+ */
+- (void)printWithResult:(SEPrintResult)result;
+
+/**
+ *  打印自己组装的数据
+ *
+ *  @param data
+ *  @param result 结果
+ */
+- (void)sendPrintData:(NSData *)data completion:(SEPrintResult)result;
+
+#pragma mark - print method
+
+- (void)prepareForPrinter;
 /**
  *  添加单行标题,默认字号是小号字体
  *
@@ -68,7 +192,6 @@ typedef NS_ENUM(NSInteger, HLFontSize) {
 
 /**
  *  设置单行信息，左标题，右实际值
- *  @提醒 该方法的预览效果与实际效果误差较大，请以实际打印小票为准
  *
  *  @param title    标题
  *  @param value    实际值
@@ -78,7 +201,6 @@ typedef NS_ENUM(NSInteger, HLFontSize) {
 
 /**
  *  设置单行信息，左标题，右实际值
- *  @提醒 该方法的预览效果与实际效果误差较大，请以实际打印小票为准
  *
  *  @param title    标题
  *  @param value    实际值
@@ -98,7 +220,6 @@ typedef NS_ENUM(NSInteger, HLFontSize) {
 
 /**
  *  添加图片，一般是添加二维码或者条形码
- *  ⚠️提醒：这种打印图片的方式，是自己生成图片，然后用位图打印
  *
  *  @param image     图片
  *  @param alignment 图片对齐方式
@@ -108,7 +229,6 @@ typedef NS_ENUM(NSInteger, HLFontSize) {
 
 /**
  *  添加条形码图片
- *  ⚠️提醒：这种打印条形码的方式，是自己生成条形码图片，然后用位图打印图片
  *
  *  @param info 条形码中包含的信息，默认居中显示，最大宽度为300。如果大于300,会等比缩放。
  */
@@ -116,7 +236,6 @@ typedef NS_ENUM(NSInteger, HLFontSize) {
 
 /**
  *  添加条形码图片
- *  ⚠️提醒：这种打印条形码的方式，是自己生成条形码图片，然后用位图打印图片
  *
  *  @param info      条形码中的信息
  *  @param alignment 图片对齐方式
@@ -145,7 +264,6 @@ typedef NS_ENUM(NSInteger, HLFontSize) {
 
 /**
  *  添加二维码图片
- *  ⚠️提醒：这种打印条二维码的方式，是自己生成二维码图片，然后用位图打印图片
  *
  *  @param info 二维码中的信息
  */
@@ -153,7 +271,6 @@ typedef NS_ENUM(NSInteger, HLFontSize) {
 
 /**
  *  添加二维码图片
- *  ⚠️提醒：这种打印条二维码的方式，是自己生成二维码图片，然后用位图打印图片
  *
  *  @param info        二维码中的信息
  *  @param centerImage 二维码中间的图片
@@ -173,12 +290,5 @@ typedef NS_ENUM(NSInteger, HLFontSize) {
  *  @param footerInfo 不填默认为 谢谢惠顾，欢迎下次光临！
  */
 - (void)appendFooter:(NSString *)footerInfo;
-
-/**
- *  获取最终的data
- *
- *  @return 最终的data
- */
-- (NSData *)getFinalData;
 
 @end

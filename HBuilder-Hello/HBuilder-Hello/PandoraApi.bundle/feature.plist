@@ -312,7 +312,7 @@
     <key>pluginbleprinter</key>
     <dict>
         <key>class</key>
-        <string>PGPluginBarScan</string>
+        <string>PGPluginBLEPrinter</string>
         <key>global</key>
         <true/>
         <key>autostart</key>

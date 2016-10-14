@@ -11,6 +11,8 @@
 #import "H5WEEngineExport.h"
 #import "PDRToolSystemEx.h"
 
+#import "BLETableViewController.h"
+
 @interface PGPluginBLEPrinter()
 {
     
@@ -64,9 +66,24 @@
         self.cbId = [commands.arguments objectAtIndex:0];
         NSLog(@"cbid---%@",_cbId);
 
-        
+        [self scanBLEDevice];
     }
 }
+//扫描蓝牙设备
+-(void)scanBLEDevice{
+    BLETableViewController * bletablevct = [[BLETableViewController alloc] initWithNibName:@"BLETableViewController" bundle:nil];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:bletablevct];
+    
+    __block typeof(self) weakSelf = self;
+    //    bletablevct.returnPeripheral = ^(CBPeripheral *peripheral){
+    ////        [weakSelf connectBLEDevice:peripheral];
+    //
+    //    };
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
+}
+
 -(void)callbackToJs:(NSString *)barcodestring{
     NSArray* pResultString = [NSArray arrayWithObjects:barcodestring, nil];
     PDRPluginResult * result = [PDRPluginResult resultWithStatus:PDRCommandStatusOK messageAsArray:pResultString];
