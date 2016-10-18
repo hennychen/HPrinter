@@ -70,15 +70,20 @@
         SEPrinterManager * manager = [SEPrinterManager sharedInstance];
         if (manager.isConnected) {
 
-            HLPrinter *printer = [[HLPrinter alloc] init];
-            NSString *title = @"测试电商";
-            NSString *str1 = @"测试电商服务中心(销售单)";
-            [printer appendText:title alignment:HLTextAlignmentCenter fontSize:HLFontSizeTitleBig];
-            [printer appendText:str1 alignment:HLTextAlignmentCenter];
-            [printer appendBarCodeWithInfo:@"RN3456789012"];
-            [printer appendSeperatorLine];
-            
-            NSData *mainData = [printer getFinalData];
+            NSString* pArgument1 = [commands.arguments objectAtIndex:1];
+//            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+//            NSData *mainData = [pArgument1 dataUsingEncoding:enc];
+
+            NSData * mainData = [pArgument1 dataUsingEncoding:NSUTF8StringEncoding];
+//            HLPrinter *printer = [[HLPrinter alloc] init];
+//            NSString *title = @"测试电商";
+//            NSString *str1 = @"测试电商服务中心(销售单)";
+//            [printer appendText:title alignment:HLTextAlignmentCenter fontSize:HLFontSizeTitleBig];
+//            [printer appendText:str1 alignment:HLTextAlignmentCenter];
+//            [printer appendBarCodeWithInfo:@"RN3456789012"];
+//            [printer appendSeperatorLine];
+//            
+//            NSData *mainData = [printer getFinalData];
             [[SEPrinterManager sharedInstance] sendPrintData:mainData completion:nil];
         }else{
             [self scanBLEDevice];
