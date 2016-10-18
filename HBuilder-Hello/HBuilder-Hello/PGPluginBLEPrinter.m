@@ -71,10 +71,10 @@
         if (manager.isConnected) {
 
             NSString* pArgument1 = [commands.arguments objectAtIndex:1];
-//            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-//            NSData *mainData = [pArgument1 dataUsingEncoding:enc];
+            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            NSData *mainData = [pArgument1 dataUsingEncoding:enc];
 
-            NSData * mainData = [pArgument1 dataUsingEncoding:NSUTF8StringEncoding];
+//            NSData * mainData = [pArgument1 dataUsingEncoding:NSUTF8StringEncoding];
 //            HLPrinter *printer = [[HLPrinter alloc] init];
 //            NSString *title = @"测试电商";
 //            NSString *str1 = @"测试电商服务中心(销售单)";
