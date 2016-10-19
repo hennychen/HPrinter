@@ -14,6 +14,8 @@
 #import "BLETableViewController.h"
 #import "SEPrinterManager.h"
 
+#import "SVProgressHUD.h"
+#import "WebPrewViewController.h"
 
 @interface PGPluginBLEPrinter()
 {
@@ -21,6 +23,7 @@
 }
 
 @property(nonatomic, copy)NSString* cbId;
+@property (strong, nonatomic) UIWebView *webView;
 
 @end
 
@@ -68,11 +71,14 @@
         self.cbId = [commands.arguments objectAtIndex:0];
         NSLog(@"cbid---%@",_cbId);
         SEPrinterManager * manager = [SEPrinterManager sharedInstance];
+        
+
         if (manager.isConnected) {
 
             NSString* pArgument1 = [commands.arguments objectAtIndex:1];
-            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-            NSData *mainData = [pArgument1 dataUsingEncoding:enc];
+            [self printWebView:pArgument1];
+//            NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+//            NSData *mainData = [pArgument1 dataUsingEncoding:enc];
 
 //            NSData * mainData = [pArgument1 dataUsingEncoding:NSUTF8StringEncoding];
 //            HLPrinter *printer = [[HLPrinter alloc] init];
@@ -83,26 +89,34 @@
 //            [printer appendBarCodeWithInfo:@"RN3456789012"];
 //            [printer appendSeperatorLine];
 //            
-//            NSData *mainData = [printer getFinalData];
-            [[SEPrinterManager sharedInstance] sendPrintData:mainData completion:nil];
         }else{
             [self scanBLEDevice];
         }
     }
+}
+
+-(void)printWebView:(NSString *)htmlString{
+    [self.webView loadHTMLString:htmlString baseURL:nil];
+    WebPrewViewController * webvct = [[WebPrewViewController alloc] initWithNibName:@"WebPrewViewController" bundle:nil];
+    webvct.htmlString = htmlString;
+    webvct.webCallback = ^(UIImage * img){
+        HLPrinter *printer = [[HLPrinter alloc] init];
+        
+        [printer appendImage:img alignment:HLTextAlignmentLeft maxWidth:450];
+        NSData *mainData = [printer getFinalData];
+        [[SEPrinterManager sharedInstance] sendPrintData:mainData completion:nil];
+    };
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:webvct];
+    
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
 }
 //扫描蓝牙设备
 -(void)scanBLEDevice{
     BLETableViewController * bletablevct = [[BLETableViewController alloc] initWithNibName:@"BLETableViewController" bundle:nil];
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:bletablevct];
     
-//    __block typeof(self) weakSelf = self;
-//        bletablevct.returnPeripheral = ^(CBPeripheral *peripheral){
-//    //        [weakSelf connectBLEDevice:peripheral];
-//            
-//            SEPrinterManager *_manager = [SEPrinterManager sharedInstance];
-//            
-//    
-//        };
     [self presentViewController:nav animated:YES completion:^{
         
     }];

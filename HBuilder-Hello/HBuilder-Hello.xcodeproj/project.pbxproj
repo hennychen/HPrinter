@@ -89,6 +89,8 @@
 		24BD5AF21C994A1700B05AA2 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24BD5AF11C994A1700B05AA2 /* libicucore.tbd */; };
 		24BD5AF41C994A2700B05AA2 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24BD5AF31C994A2700B05AA2 /* libstdc++.tbd */; };
 		24BD5AF61C994BB200B05AA2 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 24BD5AF51C994BB200B05AA2 /* libc++.tbd */; };
+		5C15A71B1DB706110039BAAF /* WebPrewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C15A7191DB706110039BAAF /* WebPrewViewController.m */; };
+		5C15A71C1DB706110039BAAF /* WebPrewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C15A71A1DB706110039BAAF /* WebPrewViewController.xib */; };
 		5C262A511DB0CA8800729F87 /* HLPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C262A491DB0CA8800729F87 /* HLPrinter.m */; };
 		5C262A521DB0CA8800729F87 /* SEPrinterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C262A4C1DB0CA8800729F87 /* SEPrinterManager.m */; };
 		5C262A531DB0CA8800729F87 /* UIImage+Bitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C262A4E1DB0CA8800729F87 /* UIImage+Bitmap.m */; };
@@ -247,6 +249,9 @@
 		24BD5AF11C994A1700B05AA2 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		24BD5AF31C994A2700B05AA2 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		24BD5AF51C994BB200B05AA2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		5C15A7181DB706110039BAAF /* WebPrewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPrewViewController.h; sourceTree = "<group>"; };
+		5C15A7191DB706110039BAAF /* WebPrewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebPrewViewController.m; sourceTree = "<group>"; };
+		5C15A71A1DB706110039BAAF /* WebPrewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebPrewViewController.xib; sourceTree = "<group>"; };
 		5C262A481DB0CA8800729F87 /* HLPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLPrinter.h; sourceTree = "<group>"; };
 		5C262A491DB0CA8800729F87 /* HLPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLPrinter.m; sourceTree = "<group>"; };
 		5C262A4A1DB0CA8800729F87 /* SEBLEConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBLEConst.h; sourceTree = "<group>"; };
@@ -646,6 +651,9 @@
 				5C262A551DB0CAC400729F87 /* BLETableViewController.h */,
 				5C262A561DB0CAC400729F87 /* BLETableViewController.m */,
 				5C262A571DB0CAC400729F87 /* BLETableViewController.xib */,
+				5C15A7181DB706110039BAAF /* WebPrewViewController.h */,
+				5C15A7191DB706110039BAAF /* WebPrewViewController.m */,
+				5C15A71A1DB706110039BAAF /* WebPrewViewController.xib */,
 			);
 			path = "HBuilder-Hello";
 			sourceTree = "<group>";
@@ -755,6 +763,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E34838D1B56838600A40C55 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				5C15A71C1DB706110039BAAF /* WebPrewViewController.xib in Resources */,
 				8EED62E1198A215A000A4449 /* icon100.png in Resources */,
 				8EED62F3198A2166000A4449 /* Default.png in Resources */,
 				8EED62B2198A1D14000A4449 /* Main_iPad.storyboard in Resources */,
@@ -806,6 +815,7 @@
 				5CA61F3B1DAA4F4400008598 /* SVProgressAnimatedView.m in Sources */,
 				5C262A531DB0CA8800729F87 /* UIImage+Bitmap.m in Sources */,
 				5CA61F3A1DAA4F4400008598 /* SVIndefiniteAnimatedView.m in Sources */,
+				5C15A71B1DB706110039BAAF /* WebPrewViewController.m in Sources */,
 				5CA61F1F1DAA46AA00008598 /* PGPluginBLEPrinter.m in Sources */,
 				5C262A511DB0CA8800729F87 /* HLPrinter.m in Sources */,
 				8EED62B5198A1D14000A4449 /* ViewController.m in Sources */,
