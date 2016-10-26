@@ -1,1 +1,2 @@
 #HPrinter
+开源hbuilder 蓝牙打印机插件，可开发各种iOS版本插件联系QQ511308538
